@@ -1,25 +1,40 @@
-function startCountdown() {
-    // Definir a data do evento
-    const eventDate = new Date("May 15, 2025 12:00:00").getTime();
+const eventos = [
+  { nome: "Formatura", data: new Date("2025-12-20T00:00:00") },
+  { nome: "Festa Julina", data: new Date("2025-07-06T00:00:00") },
+  { nome: "AniversArio", data: new Date("2025-08-04T00:00:00") }
+];
 
-    // Atualizar a contagem regressiva a cada segundo
-    const interval = setInterval(function() {
-        const now = new Date().getTime();
-        const timeLeft = eventDate - now;
-
-        // Cálculos para dias, horas, minutos e segundos
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        // Exibir o tempo restante
-        document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-        // Quando a contagem terminar
-        if (timeLeft < 0) {
-            clearInterval(interval);
-            document.getElementById("timer").innerHTML = "Evento começou!";
-        }
-    }, 1000);
+function showEvent(eventoId) {
+  const tabs = document.querySelectorAll('.tab-content');
+  tabs.forEach(tab => tab.style.display = 'none');
+  document.getElementById(eventoId).style.display = 'block';
 }
+
+function updateCountdown(eventoIndex) {
+  const now = new Date();
+  const distancia = eventos[eventoIndex].data - now;
+
+  if (distancia < 0) {
+    document.getElementById(`countdown-${eventos[eventoIndex].nome.toLowerCase().replace(" ", "-")}`).innerHTML = "O evento já ocorreu!";
+    return;
+  }
+
+  const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+  const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+  const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+  document.getElementById(`countdown-${eventos[eventoIndex].nome.toLowerCase().replace(" ", "-")}`).innerHTML = `
+    ${dias}d ${horas}h ${minutos}m ${segundos}s
+  `;
+}
+
+function init() {
+  eventos.forEach((evento, index) => {
+    updateCountdown(index);
+    setInterval(() => updateCountdown(index), 1000);
+  });
+  showEvent('formatura');
+}
+
+init();
