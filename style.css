@@ -1,39 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f3f3f3;
-    text-align: center;
-    padding: 50px;
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-.container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: inline-block;
+.tabs {
+  margin-bottom: 20px;
 }
 
-h1 {
-    color: #333;
+.tabs button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-#countdown {
-    margin-top: 20px;
-    font-size: 36px;
-    font-weight: bold;
-    color: #e74c3c;
+.tabs button:hover {
+  background-color: #555;
 }
 
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.tab-content {
+  display: none;
+  text-align: center;
 }
 
-button:hover {
-    background-color: #2980b9;
+#countdown-formatura,
+#countdown-festa-julina,
+#countdown-aniversario {
+  font-size: 2rem;
+  margin-top: 20px;
 }
